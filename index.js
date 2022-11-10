@@ -17,8 +17,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 
 
-
-
 async function run() {
 
     try {
@@ -75,6 +73,22 @@ async function run() {
             res.send(cursor)
         })
 
+        app.get('/my-reviews', verifyJWT, async(req, res)=>{
+            const decoded = req.decoded;
+            if(decoded?.email !== req.query.email){
+                res.status(403).send({message: 'unauthorized access'})              
+            }
+           
+            let query = {};
+            if(query){
+                query = {
+                    email: req.query.email
+                }
+            }
+            const cursor = reviewCollection.find(query).sort({ $natural: -1 })
+            const result = await cursor.toArray()
+            res.send(result)
+        })
 
 
 
