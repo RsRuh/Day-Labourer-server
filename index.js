@@ -15,6 +15,7 @@ app.use(express.json());
 const uri = `mongodb+srv://${process.env.USER_SECRET}:${process.env.PASSWORD_SECRET}@cluster0.v8gjvac.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+
 function verifyJWT(req, res, next){
     
     const authHeader = req.headers.authorization;
@@ -45,6 +46,7 @@ async function run() {
             var token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h'})
             res.send({token})
         })  
+      
 
 
   
@@ -53,6 +55,7 @@ async function run() {
             const result = await serviceCollection.insertOne(query);
             res.send(result)
         })
+
 
         app.get('/three-services', async (req, res) => {
             const query = {};
@@ -77,6 +80,8 @@ async function run() {
             res.send(result);
         })
 
+
+
         app.get('/reviews', async(req, res)=>{
 
             let query = {};
@@ -91,11 +96,15 @@ async function run() {
             res.send(review)
         })
 
+
+
         app.post('/reviews', async(req, res)=>{
             const review = req.body;
             const cursor = await reviewCollection.insertOne(review)
             res.send(cursor)
         })
+
+
 
         app.get('/my-reviews', verifyJWT, async(req, res)=>{
             const decoded = req.decoded;
@@ -116,8 +125,7 @@ async function run() {
 
         
         app.patch('/reviews/:id', async (req, res) => {
-            const id = req.params.id;`
-            `
+            const id = req.params.id;
             const feedback = req.body.feedback
             console.log(id, feedback);
             const query = { _id: ObjectId(id) }
