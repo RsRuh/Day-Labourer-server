@@ -55,6 +55,20 @@ async function run() {
             res.send(result);
         })
 
+        app.get('/reviews', async(req, res)=>{
+
+            let query = {};
+
+            if (req.query.id) {
+                query = {
+                    categoryId: req.query.id
+                }
+            }
+            const cursor = reviewCollection.find(query).sort({ $natural: -1 })
+            const review = await cursor.toArray()
+            res.send(review)
+        })
+
 
 
 
