@@ -39,6 +39,14 @@ async function run() {
         const serviceCollection = client.db('youtubeDB').collection('services');
         const reviewCollection = client.db('youtubeDB').collection('reviews')
 
+
+        app.post('/jwt', (req, res) =>{
+            const user = req.body;
+            var token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h'})
+            res.send({token})
+        })  
+
+
   
         app.post('/services', async (req, res) => {
             const query = req.body
