@@ -19,6 +19,33 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 
 
+async function run() {
+
+    try {
+        const serviceCollection = client.db('youtubeDB').collection('services');
+        const reviewCollection = client.db('youtubeDB').collection('reviews')
+
+  
+
+
+
+
+
+
+
+    }
+    finally {
+
+    }
+}
+
+
+run().catch(err => console.error(err))
+
+
+
+
+
 
 
 
