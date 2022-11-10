@@ -26,16 +26,23 @@ async function run() {
         const reviewCollection = client.db('youtubeDB').collection('reviews')
 
   
-
-
-
-
-
         app.post('/services', async (req, res) => {
             const query = req.body
             const result = await serviceCollection.insertOne(query);
             res.send(result)
         })
+
+        app.get('/three-services', async (req, res) => {
+            const query = {};
+            const cursor = serviceCollection.find(query);
+            const result = await cursor.limit(3).toArray();
+            res.send(result);
+        })
+
+
+
+
+
 
 
 
