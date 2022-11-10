@@ -90,6 +90,25 @@ async function run() {
             res.send(result)
         })
 
+        
+        app.patch('/reviews/:id', async (req, res) => {
+            const id = req.params.id;`
+            `
+            const feedback = req.body.feedback
+            console.log(id, feedback);
+            const query = { _id: ObjectId(id) }
+            const updatedReview = {
+                $set: {
+                    feedback: feedback
+                }
+            }
+            const result = await reviewCollection.updateOne(query, updatedReview);
+            res.send(result);
+        })
+
+        
+
+
 
 
 
