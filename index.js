@@ -163,7 +163,7 @@ run().catch(err => console.error(err))
 
 
 app.get('/', (req, res) => {
-    res.send('Youtube blog server is running');
+    res.send('Youtube blog server is running now');
 })
 app.listen(port, () => {
     console.log(`Running on port ${port}`);
